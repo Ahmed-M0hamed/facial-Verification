@@ -4,6 +4,7 @@ import os
 
 images_path = os.path.join(os.getcwd(),'data', 'negative')
 
+# filter the images depend on the width and height of the image  
 for file in os.listdir(images_path) : 
     if os.path.exists(os.path.join(images_path , file)) : 
         image = cv2.imread(os.path.join(images_path , file)) 

@@ -5,9 +5,11 @@ import random
 import numpy as np 
 from yaml import AnchorToken 
 
+# load th emodel 
 model = tf.keras.models.load_model(os.path.join(os.getcwd() , 'model_1')) 
 cap = cv2.VideoCapture(0 ) 
 
+# the preprocess function for the images 
 def preprocess(img_path ) : 
     img = tf.io.read_file(img_path ) 
     img = tf.io.decode_jpeg(img) 
@@ -16,7 +18,11 @@ def preprocess(img_path ) :
 
 
     
+# we will select 5 random anchor images 
+# we will pass each of them with the captured image to the model to predict 
+# we will take the mean and compare it to threshold 
 def predict(model , frame , detection_threshold   ) : 
+    
     images_paths = os.listdir(os.path.join(os.getcwd() , 'data' , 'anchors'))
     random_indexs = [random.randrange(1, len(images_paths), 1) for i in range(5)]
     anchors  = [os.path.join(os.getcwd() , 'data' , 'anchors' , img_path) for i , img_path  in enumerate(images_paths) for ii in random_indexs if i == ii  ]
